@@ -241,7 +241,6 @@ end
 
 -- ui creating & handling
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xaxaxaxaxaxaxaxaxa/Libraries/main/UI's/Linoria/Source.lua"))()
-Library:SetWatermark("")
 
 local Window = Library:CreateWindow("Universal Silent Aim, by Your Mom")
 local GeneralTab = Window:AddTab("General")
