@@ -10,7 +10,7 @@ end
 local SilentAimSettings = {
     Enabled = false,
     
-    ClassName = "Universal Silent Aim",
+    ClassName = "Universal Silent Aim - Averiias, Stefanuk12, xaxa",
     ToggleKey = "RightAlt",
     
     TeamCheck = false,
@@ -23,7 +23,7 @@ local SilentAimSettings = {
     ShowSilentAimTarget = false, 
     
     MouseHitPrediction = false,
-    MouseHitPredictionAmount = 0,
+    MouseHitPredictionAmount = 0.165,
     HitChance = 100
 }
 
@@ -241,6 +241,7 @@ end
 
 -- ui creating & handling
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xaxaxaxaxaxaxaxaxa/Libraries/main/UI's/Linoria/Source.lua"))()
+Library:SetWatermark("")
 
 local Window = Library:CreateWindow("Universal Silent Aim, by Your Mom")
 local GeneralTab = Window:AddTab("General")
@@ -469,3 +470,5 @@ oldIndex = hookmetamethod(game, "__index", newcclosure(function(self, Index)
 
     return oldIndex(self, Index)
 end))
+
+
