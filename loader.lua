@@ -482,4 +482,7 @@ oldIndex = hookmetamethod(game, "__index", newcclosure(function(self, Index)
 
     return oldIndex(self, Index)
 end))
+
+if getgenv().Join == true then
 p()
+end
