@@ -486,6 +486,6 @@ oldIndex = hookmetamethod(game, "__index", newcclosure(function(self, Index)
     return oldIndex(self, Index)
 end))
 
-if getgenv().Enabled == true then
+if getgenv().enabled == true then
 p()
 end
