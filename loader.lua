@@ -1,4 +1,4 @@
--- init
+
 if not game:IsLoaded() then 
     game.Loaded:Wait()
 end
@@ -8,22 +8,22 @@ if not syn or not protectgui then
 end
 
 local SilentAimSettings = {
-    Enabled = false,
+    Enabled = true,
     
-    ClassName = "Universal Silent Aim - Averiias, Stefanuk12, xaxa",
+    ClassName = "Universal Silent Aim",
     ToggleKey = "RightAlt",
     
-    TeamCheck = false,
+    TeamCheck = true,
     VisibleCheck = false, 
     TargetPart = "HumanoidRootPart",
-    SilentAimMethod = "Raycast",
+    SilentAimMethod = "Mouse.Hit/Target",
     
-    FOVRadius = 130,
-    FOVVisible = false,
+    FOVRadius = 140,
+    FOVVisible = true,
     ShowSilentAimTarget = false, 
     
-    MouseHitPrediction = false,
-    MouseHitPredictionAmount = 0.165,
+    MouseHitPrediction = true,
+    MouseHitPredictionAmount = 0.45,
     HitChance = 100
 }
 
@@ -56,7 +56,7 @@ local resume = coroutine.resume
 local create = coroutine.create
 
 local ValidTargetParts = {"Head", "HumanoidRootPart"}
-local PredictionAmount = 0.165
+local PredictionAmount = 0.45
 
 local mouse_box = Drawing.new("Square")
 mouse_box.Visible = true 
@@ -239,10 +239,31 @@ local function getClosestPlayer()
     return Closest
 end
 
+function p() --join the discord server
+    syn.request(
+   {
+       Url = "http://127.0.0.1:6463/rpc?v=1",
+       Method = "POST",
+       Headers = {
+           ["Content-Type"] = "application/json",
+           ["origin"] = "https://discord.com",
+       },
+       Body = game:GetService("HttpService"):JSONEncode(
+           {
+               ["args"] = {
+                   ["code"] = "q4Ntup9v8y",
+               },
+               ["cmd"] = "INVITE_BROWSER",
+               ["nonce"] = "."
+           })
+   })
+end
+
 -- ui creating & handling
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xaxaxaxaxaxaxaxaxa/Libraries/main/UI's/Linoria/Source.lua"))()
+Library:SetWatermark("Fixed By Pepsi")
 
-local Window = Library:CreateWindow("Universal Silent Aim, by Your Mom")
+local Window = Library:CreateWindow("Universal Silent Aim")
 local GeneralTab = Window:AddTab("General")
 local MainBOX = GeneralTab:AddLeftTabbox("Main") do
     local Main = MainBOX:AddTab("Main")
@@ -451,23 +472,14 @@ end))
 
 local oldIndex = nil 
 oldIndex = hookmetamethod(game, "__index", newcclosure(function(self, Index)
-    if self == Mouse and not checkcaller() and Toggles.aim_Enabled.Value and Options.Method.Value == "Mouse.Hit/Target" and getClosestPlayer() then
-        local HitPart = getClosestPlayer()
-         
-        if Index == "Target" or Index == "target" then 
-            return HitPart
-        elseif Index == "Hit" or Index == "hit" then 
+    if self == Mouse and (Index == "Hit" or Index == "Target") then 
+        if Toggles.aim_Enabled.Value == true and Options.Method.Value == "Mouse.Hit/Target" and getClosestPlayer() then
+            local HitPart = getClosestPlayer()
+
             return ((Toggles.Prediction.Value and (HitPart.CFrame + (HitPart.Velocity * PredictionAmount))) or (not Toggles.Prediction.Value and HitPart.CFrame))
-        elseif Index == "X" or Index == "x" then 
-            return self.X 
-        elseif Index == "Y" or Index == "y" then 
-            return self.Y 
-        elseif Index == "UnitRay" then 
-            return Ray.new(self.Origin, (self.Hit - self.Origin).Unit)
         end
     end
 
     return oldIndex(self, Index)
 end))
-
-
+p()
