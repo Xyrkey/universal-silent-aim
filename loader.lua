@@ -1,4 +1,7 @@
-
+--[[
+owner of the script: github.com/Averiias/ 
+I just editted some stuff in the "Mouse.Hit/Target" thing to make it work on blox fruits and other games so credits to him lol
+]]--
 if not game:IsLoaded() then 
     game.Loaded:Wait()
 end
